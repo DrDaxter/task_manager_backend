@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "taskManagerBE", "taskManagerBE\taskManagerBE.csproj", "{CD0C8D8E-2141-463C-9E0B-AE596D70FFC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2CE3B356-5D0F-4135-A60B-21266D8308AF}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD0C8D8E-2141-463C-9E0B-AE596D70FFC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD0C8D8E-2141-463C-9E0B-AE596D70FFC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD0C8D8E-2141-463C-9E0B-AE596D70FFC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD0C8D8E-2141-463C-9E0B-AE596D70FFC0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

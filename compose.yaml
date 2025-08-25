@@ -1,0 +1,6 @@
+﻿services:
+  taskmanagerbe:
+    image: taskmanagerbe
+    build:
+      context: .
+      dockerfile: taskManagerBE/Dockerfile
