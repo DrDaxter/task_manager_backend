@@ -27,6 +27,7 @@
     <ItemGroup>
       <Folder Include="Data\" />
       <Folder Include="Dto\" />
+      <Folder Include="Helpers\" />
       <Folder Include="Models\" />
       <Folder Include="Repository\" />
     </ItemGroup>
