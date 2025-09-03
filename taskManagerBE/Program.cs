@@ -21,6 +21,8 @@ builder.Services.AddDbContext<MyDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
+builder.WebHost.UseUrls("http://*:8080");
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,7 +32,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
