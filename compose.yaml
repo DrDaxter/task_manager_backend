@@ -4,3 +4,6 @@
     build:
       context: .
       dockerfile: taskManagerBE/Dockerfile
+    ports:
+      - "8080:8080"
+    restart: "always"
