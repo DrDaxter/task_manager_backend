@@ -27,8 +27,28 @@ public class ProjectRepository : IProjectRepository
     public bool AddProject(Project project)
     {
         _context.Projects.Add(project);
-        var result = _context.SaveChanges() > 0;
-        return result;
+        return Save();
     }
-    
+
+    public bool UpdateProject(Project project)
+    {
+        _context.Projects.Update(project);
+        return Save();
+    }
+
+    public bool DeleteProject(Project project)
+    {
+        _context.Remove(project);
+        return Save();
+    }
+
+    public bool ProjectExists(int id)
+    {
+        return _context.Projects.Any(e => e.Id == id);
+    }
+
+    public bool Save()
+    {
+        return _context.SaveChanges() > 0;
+    }
 }

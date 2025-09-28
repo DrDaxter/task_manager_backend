@@ -2,13 +2,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace taskManagerBE.Dto;
 
-public class ProjectDto
+public class CreateProjectDto
 {
-    public int Id { get; set; }
+    [Required]
+    public required string ProjectName { get; set; }
     
-    public string ProjectName { get; set; } = null!;
-    
+    [Required]
     public string? Description { get; set; }
     
+    [Required]
     public int UserId { get; set; }
 }
