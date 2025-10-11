@@ -75,7 +75,8 @@ public class ProjectController: ControllerBase
             return BadRequest(ModelState);
         }
         
-        return CreatedAtRoute("CreateProject", new { projectId = newProject.Id }, newProject);
+        //return CreatedAtRoute("CreateProject", new { projectId = newProject.Id }, newProject);
+        return Ok("Project created");
     }
 
     [HttpPatch("{id}")]
