@@ -59,7 +59,7 @@ public class ProjectController: ControllerBase
         return Ok(projectDto);
     }
 
-    [HttpPost]
+    [HttpPost(Name = "CreateProject")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -75,8 +75,7 @@ public class ProjectController: ControllerBase
             return BadRequest(ModelState);
         }
         
-        //return CreatedAtRoute("CreateProject", new { projectId = newProject.Id }, newProject);
-        return Ok("Project created");
+        return CreatedAtRoute("CreateProject", new { projectId = newProject.Id }, newProject);
     }
 
     [HttpPatch("{id}")]
