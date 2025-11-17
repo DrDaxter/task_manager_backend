@@ -11,11 +11,13 @@ namespace taskManagerBE.Controllers;
 public class ProjectController: ControllerBase
 {
     private readonly IProjectRepository _projectRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
     
-    public ProjectController(IProjectRepository projectRepository, IMapper mapper)
+    public ProjectController(IProjectRepository projectRepository, IUserRepository userRepository ,IMapper mapper)
     {
         _projectRepository = projectRepository;
+        _userRepository = userRepository;
         _mapper = mapper;
     }
 
@@ -58,6 +60,33 @@ public class ProjectController: ControllerBase
         
         return Ok(projectDto);
     }
+
+    [HttpGet("GetProjectsByUserId/{userId:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetProjectsByUserId(int userId)
+    {
+        try
+        {
+            var userExist = await _userRepository.UserExists(userId);
+            if (!userExist)
+            {
+                return NotFound($"User with id {userId} not found");
+            }
+            
+            var projects = await _projectRepository.GetProjectsByUserId(userId);
+            var projectsDto = _mapper.Map<List<Project>>(projects);
+            
+            return Ok(projectsDto);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+    
 
     [HttpPost(Name = "CreateProject")]
     [ProducesResponseType(StatusCodes.Status201Created)]

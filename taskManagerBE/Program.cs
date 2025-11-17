@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SwaggerThemes;
 using taskManagerBE.Data;
 using taskManagerBE.Helpers;
 using taskManagerBE.Interfaces;
@@ -21,6 +22,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddAutoMapper(cfg => { }, typeof(Program).Assembly);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -46,7 +49,7 @@ app.UseCors("allowFront");
 //}
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(Theme.Dracula);
 
 //app.UseHttpsRedirection();
 

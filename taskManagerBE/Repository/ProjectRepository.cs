@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using taskManagerBE.Data;
 using taskManagerBE.Interfaces;
 using taskManagerBE.Models;
@@ -12,7 +13,7 @@ public class ProjectRepository : IProjectRepository
         _context = context;
     }
     
-    public ICollection<Project> GetAllProjects()
+    public IEnumerable<Project> GetAllProjects()
     {
         return _context.Projects.ToList();
     }
@@ -22,6 +23,13 @@ public class ProjectRepository : IProjectRepository
         var result =  _context.Projects.Find(id);
         
         return result;
+    }
+
+    public async Task<ICollection<Project>> GetProjectsByUserId(int userId)
+    {
+        if (userId < 0) return [];
+        
+        return await _context.Projects.Where(p => p.UserId == userId).ToListAsync();
     }
 
     public bool AddProject(Project project)
