@@ -19,15 +19,16 @@ public class TaskRepository: ITaskRepository
         return await _context.Tasks.Where(t => t.ProjectId == projectId).ToListAsync();
     }
 
-    public bool AddTask(Task task)
+    public async Task<bool> AddTask(Task task)
     {
         task.State = true;
-        _context.Tasks.Add(task);
-        return Save();
+        await _context.Tasks.AddAsync(task);
+        return await SaveAsync();
     }
 
-    public bool Save()
+    public async Task<bool> SaveAsync()
     {
-        return _context.SaveChanges() >= 0;
+        var result = await _context.SaveChangesAsync();
+        return result >= 0;
     }
 }

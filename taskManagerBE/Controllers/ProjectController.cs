@@ -77,7 +77,7 @@ public class ProjectController: ControllerBase
             }
             
             var projects = await _projectRepository.GetProjectsByUserId(userId);
-            var projectsDto = _mapper.Map<List<Project>>(projects);
+            var projectsDto = _mapper.Map<List<ProjectDto>>(projects);
             
             return Ok(projectsDto);
         }
@@ -92,13 +92,14 @@ public class ProjectController: ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public IActionResult CreateProject([FromBody] CreateProjectDto project)
+    public async Task<IActionResult> CreateProject([FromBody] CreateProjectDto project)
     {
         if(!ModelState.IsValid)
             return BadRequest(ModelState);
         
         var newProject = _mapper.Map<Project>(project);
-        if (!_projectRepository.AddProject(newProject))
+        var result = await _projectRepository.AddProject(newProject); 
+        if (!result)
         {
             ModelState.AddModelError("", "Error creating project");
             return BadRequest(ModelState);
@@ -113,7 +114,7 @@ public class ProjectController: ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public IActionResult UpdateProject(int id, [FromBody] UpdateProjectDto project)
+    public async Task<IActionResult> UpdateProject(int id, [FromBody] UpdateProjectDto project)
     {
         if(!ModelState.IsValid)
             return BadRequest(ModelState);
@@ -121,7 +122,8 @@ public class ProjectController: ControllerBase
         var projectToUpdate = _mapper.Map<Project>(project);
         projectToUpdate.Id = id;
 
-        if (!_projectRepository.UpdateProject(projectToUpdate))
+        var result = await _projectRepository.UpdateProject(projectToUpdate);
+        if (!result)
         {
             ModelState.AddModelError("", "Error updating project");
             return BadRequest(ModelState);
@@ -133,7 +135,7 @@ public class ProjectController: ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public IActionResult DeleteProject(int id)
+    public async Task<IActionResult> DeleteProject(int id)
     {
         try
         {
@@ -142,7 +144,8 @@ public class ProjectController: ControllerBase
             if(projectToDelete == null)
                 return NotFound();
             
-            if (!_projectRepository.DeleteProject(projectToDelete))
+            var result = await _projectRepository.DeleteProject(projectToDelete);
+            if (!result)
             {
                 ModelState.AddModelError("", "Error deleting project");
                 return BadRequest(ModelState);

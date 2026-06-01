@@ -32,22 +32,22 @@ public class ProjectRepository : IProjectRepository
         return await _context.Projects.Where(p => p.UserId == userId).ToListAsync();
     }
 
-    public bool AddProject(Project project)
+    public async Task<bool> AddProject(Project project)
     {
-        _context.Projects.Add(project);
-        return Save();
+        await _context.Projects.AddAsync(project);
+        return await Save();
     }
 
-    public bool UpdateProject(Project project)
+    public async Task<bool> UpdateProject(Project project)
     {
         _context.Projects.Update(project);
-        return Save();
+        return await Save();
     }
 
-    public bool DeleteProject(Project project)
+    public async Task<bool> DeleteProject(Project project)
     {
         _context.Remove(project);
-        return Save();
+        return await Save();
     }
 
     public bool ProjectExists(int id)
@@ -55,8 +55,8 @@ public class ProjectRepository : IProjectRepository
         return _context.Projects.Any(e => e.Id == id);
     }
 
-    public bool Save()
+    public async Task<bool> Save()
     {
-        return _context.SaveChanges() > 0;
+        return await _context.SaveChangesAsync() > 0;
     }
 }
