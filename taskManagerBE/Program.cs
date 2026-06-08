@@ -1,3 +1,4 @@
+using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using SwaggerThemes;
@@ -66,6 +67,8 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+
+Env.Load();
 
 builder.Services.AddDbContext<MyDbContext>(options =>
 {
