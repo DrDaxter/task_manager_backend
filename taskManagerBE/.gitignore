@@ -27,6 +27,9 @@ nupkg/
 *.userosscache
 *.sln.docstates
 
+# secrets key
+.env
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
