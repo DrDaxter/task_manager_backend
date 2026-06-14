@@ -7,7 +7,7 @@ using taskManagerBE.Helpers;
 using taskManagerBE.Interfaces;
 using taskManagerBE.Repository;
 
-Env.Load("keys/.env");
+Env.Load(".env");
 var builder = WebApplication.CreateBuilder(args);
 
 //allow cors
