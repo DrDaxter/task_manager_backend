@@ -7,6 +7,7 @@ using taskManagerBE.Helpers;
 using taskManagerBE.Interfaces;
 using taskManagerBE.Repository;
 
+Env.Load("keys/.env");
 var builder = WebApplication.CreateBuilder(args);
 
 //allow cors
@@ -68,11 +69,11 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-Env.Load();
-
 builder.Services.AddDbContext<MyDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    Console.WriteLine("Connection string below");
+    Console.WriteLine(connectionString);
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
